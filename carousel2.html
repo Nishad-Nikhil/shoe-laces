@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="carousel2.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <figure class="logo">
+        <img src="img/logo.png" alt="" />
+      </figure>
+      <nav>
+        <ul>
+          <li>HOME</li>
+          <li>INFO</li>
+          <li><a href="login.html">LOGIN</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="carousel">
+      <div class="list">
+        <div class="item">
+          <figure>
+            <img src="img/3.png" />
+          </figure>
+          <div class="content">
+            <p class="category">Sport Shoes</p>
+            <h2>NIKE D.01</h2>
+            <p class="description">
+              <!-- 20 -->
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum
+              facere ipsa blanditiis quidem dignissimos enim quam corrupti
+              praesentium ipsam assumenda?
+            </p>
+            <div class="more">
+              <button>Add To Cart</button>
+              <button><i class="fa-solid fa-play"></i> See More</button>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <figure>
+            <img src="img/2.png" />
+          </figure>
+          <div class="content">
+            <p class="category">Sport Shoes</p>
+            <h2>NIKE D.02</h2>
+            <p class="description">
+              <!-- 20 -->
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum
+              facere ipsa blanditiis quidem dignissimos enim quam corrupti
+              praesentium ipsam assumenda?
+            </p>
+            <div class="more">
+              <button>Add To Cart</button>
+              <button><i class="fa-solid fa-play"></i> See More</button>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <figure>
+            <img src="img/1.png" />
+          </figure>
+          <div class="content">
+            <p class="category">Sport Shoes</p>
+            <h2>NIKE D.03</h2>
+            <p class="description">
+              <!-- 20 -->
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum
+              facere ipsa blanditiis quidem dignissimos enim quam corrupti
+              praesentium ipsam assumenda?
+            </p>
+            <div class="more">
+              <button>Add To Cart</button>
+              <button><i class="fa-solid fa-play"></i> See More</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arrows">
+        <button id="prev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button id="next"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      <div class="indicators">
+        <div class="number">02</div>
+        <ul>
+          <li class="active"></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </section>
+
+    <script>
+      let prevBtn = document.getElementById("prev");
+      let nextBtn = document.getElementById("next");
+      let carousel = document.querySelector(".carousel");
+      let items = carousel.querySelectorAll(".list .item");
+      let indicator = carousel.querySelector(".indicators");
+      let dots = indicator.querySelectorAll(".indicators ul li");
+
+      let active = 0;
+      let firstPosition = 0;
+      let lastPosition = items.length - 1;
+      let autoPlay;
+
+      const startAutoPlay = () => {
+        clearInterval(autoPlay);
+        autoPlay = setInterval(() => {
+          nextBtn.click();
+        }, 5000);
+      };
+      startAutoPlay();
+
+      const setSlider = () => {
+        let itemActiveOld = carousel.querySelector(".list .item.active");
+        if (itemActiveOld) itemActiveOld.classList.remove("active");
+        items[active].classList.add("active");
+
+        let dotActiveOld = indicator.querySelector(".indicators ul li.active");
+        if (dotActiveOld) dotActiveOld.classList.remove("active");
+        dots[active].classList.add("active");
+
+        indicator.querySelector(".number").innerText = "0" + (active + 1);
+        startAutoPlay();
+      };
+      setSlider();
+
+      nextBtn.onclick = () => {
+        active = active + 1 > lastPosition ? 0 : active + 1;
+        carousel.style.setProperty("--calculation", 1);
+        setSlider();
+      };
+      prev.onclick = () => {
+        active = active - 1 < firstPosition ? lastPosition : active - 1;
+        carousel.style.setProperty("--calculation", -1);
+        setSlider();
+        clearInterval(autoPlay);
+        autoPlay = setInterval(() => {
+          nextBtn.click();
+        }, 5000);
+      };
+      dots.forEach((item, position) => {
+        item.onclick = () => {
+          active = position;
+          setSlider();
+        };
+      });
+    </script>
+  </body>
+</html>
